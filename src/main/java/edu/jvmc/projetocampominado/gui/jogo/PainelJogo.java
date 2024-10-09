@@ -42,15 +42,16 @@ public final class PainelJogo extends javax.swing.JPanel {
                     tijolo.setFocusable(false);
                     tijolo.setMargin(new Insets(0,0,0,0));
                     tijolo.setFont(new Font("Arial Unicode MS", Font.PLAIN, 45));
-                    //tijolo.setText("💣");
+
                     tijolo.addMouseListener(new MouseAdapter(){
+                        
                      @Override
                      public void mousePressed(MouseEvent e){
                          TijolinhoMina tijolo = (TijolinhoMina) e.getSource();
                          
                          //botao esquerdo
                          if (e.getButton() == MouseEvent.BUTTON1){
-                            if (tijolo.getText()==""){
+                            if (tijolo.getText()==""){//Ou seja, só pode clicar se tiver vazio
                                 if(listMina.contains(tijolo)){
                                     revelarMinas();
                                 }else{
@@ -58,7 +59,7 @@ public final class PainelJogo extends javax.swing.JPanel {
                                 }
                             }
                          }
-                     }
+                        }
                     });
                     
                     campoPainel.add(tijolo);
@@ -139,7 +140,7 @@ public final class PainelJogo extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         campoPainel = new javax.swing.JPanel();
 
-        setBackground(new java.awt.Color(0, 51, 0));
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(800, 500));
         setLayout(new java.awt.BorderLayout());
 
