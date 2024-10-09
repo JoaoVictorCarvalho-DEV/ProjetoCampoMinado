@@ -6,6 +6,9 @@ package edu.jvmc.projetocampominado.gui.jogo;
 
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.JButton;
 
 /**
@@ -39,12 +42,85 @@ public final class PainelJogo extends javax.swing.JPanel {
                     tijolo.setFocusable(false);
                     tijolo.setMargin(new Insets(0,0,0,0));
                     tijolo.setFont(new Font("Arial Unicode MS", Font.PLAIN, 45));
-                    tijolo.setText("1");
+                    //tijolo.setText("💣");
+                    tijolo.addMouseListener(new MouseAdapter(){
+                     @Override
+                     public void mousePressed(MouseEvent e){
+                         TijolinhoMina tijolo = (TijolinhoMina) e.getSource();
+                         
+                         //botao esquerdo
+                         if (e.getButton() == MouseEvent.BUTTON1){
+                            if (tijolo.getText()==""){
+                                if(listMina.contains(tijolo)){
+                                    revelarMinas();
+                                }else{
+                                    checarMina(tijolo.linha,tijolo.coluna);
+                                }
+                            }
+                         }
+                     }
+                    });
+                    
                     campoPainel.add(tijolo);
                 }
             }
+            setMinas();
         }
+    void setMinas(){
+        listMina = new ArrayList<TijolinhoMina>();
+        
+        listMina.add(tabuleiro[3][2]);
+        listMina.add(tabuleiro[5][3]);
+        listMina.add(tabuleiro[5][6]);
+        listMina.add(tabuleiro[7][4]);
+        listMina.add(tabuleiro[1][4]);
+    }
     
+    void revelarMinas(){
+        for (int i = 0; i<listMina.size(); i++){
+            TijolinhoMina tijolo = listMina.get(i);
+            tijolo.setText("💣");
+        }
+    }
+    
+    void checarMina(int linha, int coluna){
+        
+        TijolinhoMina tijolo = tabuleiro[linha][coluna];
+        tijolo.setEnabled(false);
+        
+        int minaEncontrada = 0;
+        
+        //verificando se há bombas
+        //em cima
+        minaEncontrada +=contarMina(linha-1,coluna-1);//topo e esquerda
+        minaEncontrada +=contarMina(linha-1,coluna);  //topo
+        minaEncontrada +=contarMina(linha-1,coluna+1);//topo e direita e por aí vai
+        
+        //lados
+        minaEncontrada +=contarMina(linha, coluna-1);
+        minaEncontrada +=contarMina(linha,coluna+1);
+        
+        //em baixo
+        minaEncontrada +=contarMina(linha+1,coluna-1);
+        minaEncontrada +=contarMina(linha+1,coluna);
+        minaEncontrada +=contarMina(linha+1,coluna+1);
+        
+        if (minaEncontrada>0){
+            tijolo.setText(Integer.toString(minaEncontrada));
+        }else{
+            tijolo.setText(" ");
+        }
+        
+    }
+    int contarMina(int linha, int coluna){
+        if (linha <0 || linha>=numLinhas || coluna < 0 || coluna >=numColunas){
+            return 0;
+        }
+        if(listMina.contains(tabuleiro[linha][coluna])){
+            return 1;
+        }
+        return 0;
+    }
     
     int tamanhoQuadrado = 70;
     int numLinhas = 8;
@@ -53,6 +129,7 @@ public final class PainelJogo extends javax.swing.JPanel {
     int alturaTela = tamanhoQuadrado * numLinhas;
     
     TijolinhoMina[][] tabuleiro = new TijolinhoMina[numLinhas][numColunas];
+    ArrayList<TijolinhoMina> listMina;
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
