@@ -9,8 +9,7 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import javax.swing.JButton;
-
+ 
 /**
  *
  * @author Jarvis 3.0
@@ -23,16 +22,6 @@ public final class PainelJogo extends javax.swing.JPanel {
         
     }
     
-    private class TijolinhoMina extends JButton{
-        int linha;
-        int coluna;
-        
-        protected TijolinhoMina(int linha, int coluna){
-            this.linha = linha;
-            this.coluna = coluna;
-        }
-        
-    }
     public void criarTijolo(PainelJogo painel){
             for (int l = 0; l< painel.numLinhas; l++){
                 for (int c = 0; c< painel.numColunas; c++){
@@ -65,9 +54,11 @@ public final class PainelJogo extends javax.swing.JPanel {
                     campoPainel.add(tijolo);
                 }
             }
-            setMinas();
+            addMinas();
         }
-    void setMinas(){
+    
+    //adição das minas
+    void addMinas(){
         listMina = new ArrayList<TijolinhoMina>();
         
         listMina.add(tabuleiro[3][2]);
@@ -159,7 +150,7 @@ public final class PainelJogo extends javax.swing.JPanel {
         add(campoPainel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel campoPainel;
     private javax.swing.JLabel jLabel1;
