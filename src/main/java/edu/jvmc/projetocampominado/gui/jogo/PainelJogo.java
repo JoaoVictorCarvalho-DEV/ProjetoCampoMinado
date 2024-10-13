@@ -76,8 +76,13 @@ public final class PainelJogo extends javax.swing.JPanel {
     }
     
     void checarMina(int linha, int coluna){
-        
+        if (linha <0 || linha>=numLinhas || coluna < 0 || coluna >=numColunas){//primeiro caso base
+            return;
+        }
         TijolinhoMina tijolo = tabuleiro[linha][coluna];
+        //
+        //adicionar caso base aqui(se a mina já estiver ativada
+        //
         tijolo.setEnabled(false);
         
         int minaEncontrada = 0;
@@ -101,7 +106,11 @@ public final class PainelJogo extends javax.swing.JPanel {
             tijolo.setText(Integer.toString(minaEncontrada));
         }else{
             tijolo.setText(" ");
+            //
+            //usar a recursão aqui, verificando se as minas vizinhas tem minas e suas seguintes
+            //
         }
+        
         
     }
     int contarMina(int linha, int coluna){
