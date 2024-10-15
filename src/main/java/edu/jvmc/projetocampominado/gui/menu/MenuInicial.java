@@ -68,7 +68,7 @@ public class MenuInicial extends javax.swing.JPanel {
             }
         });
         add(btJogar);
-        btJogar.setBounds(300, 270, 180, 23);
+        btJogar.setBounds(300, 270, 180, 27);
 
         btPontuacao.setText("PONTUAÇÕES");
         btPontuacao.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -85,7 +85,7 @@ public class MenuInicial extends javax.swing.JPanel {
             }
         });
         add(btPontuacao);
-        btPontuacao.setBounds(300, 330, 180, 23);
+        btPontuacao.setBounds(300, 330, 180, 27);
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         add(jPanel2);
@@ -94,7 +94,7 @@ public class MenuInicial extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(0, 153, 0));
         jPanel1.setLayout(null);
         add(jPanel1);
-        jPanel1.setBounds(0, 10, 800, 500);
+        jPanel1.setBounds(0, 0, 800, 510);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btJogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btJogarActionPerformed
