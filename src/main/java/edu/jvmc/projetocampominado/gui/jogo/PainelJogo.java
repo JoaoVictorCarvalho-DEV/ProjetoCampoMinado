@@ -15,11 +15,10 @@ import java.util.ArrayList;
  * @author Jarvis 3.0
  */
 public final class PainelJogo extends javax.swing.JPanel {
-    
+    int minasEncontradas = 0;
     public PainelJogo(){
         initComponents();
         criarTijolo(this);
-        
     }
     
     public void criarTijolo(PainelJogo painel){
@@ -51,8 +50,9 @@ public final class PainelJogo extends javax.swing.JPanel {
                          if(e.getButton()==MouseEvent.BUTTON3 && tijolo.isEnabled()){
                              if (tijolo.getText()==""){//Ou seja, só pode clicar se tiver vazio
                                 tijolo.setText("🚩");
-                            }else
+                            }else if(tijolo.getText()=="🚩"){
                                  tijolo.setText("");
+                             }
                          }
                         } 
                     });
