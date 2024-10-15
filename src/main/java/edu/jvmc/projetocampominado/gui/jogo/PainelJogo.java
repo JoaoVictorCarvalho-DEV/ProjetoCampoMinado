@@ -17,22 +17,22 @@ import java.util.Random;
  */
 public final class PainelJogo extends javax.swing.JPanel {
     
-    boolean minaEncontrada = false;
-    int tamanhoQuadrado = 70;
-    int numLinhas = 8;
-    int numColunas = numLinhas;
-    int larguraTela = tamanhoQuadrado * numColunas;
-    int alturaTela = tamanhoQuadrado * numLinhas;
-    private final int qtdMinas;
+    private boolean minaEncontrada = false;
+    private int tamanhoQuadrado = 70;
+    private int numLinhas = 8;
+    private final int numColunas = numLinhas;
+    private final int larguraTela = tamanhoQuadrado * numColunas;
+    private final int alturaTela = tamanhoQuadrado * numLinhas;
+    private int qtdMinas;
     
     TijolinhoMina[][] tabuleiro = new TijolinhoMina[numLinhas][numColunas];
     ArrayList<TijolinhoMina> listMina;
    
     
-    public PainelJogo(int qtdMinas){
+    public PainelJogo(){
         initComponents();
         criarTijolo(this);
-        this.qtdMinas = qtdMinas;
+        //this.qtdMinas = qtdMinas;
     }
     
     public void criarTijolo(PainelJogo painel){
