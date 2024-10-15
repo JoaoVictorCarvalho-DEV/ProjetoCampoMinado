@@ -9,16 +9,30 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Random;
  
 /**
  *
  * @author Jarvis 3.0
  */
 public final class PainelJogo extends javax.swing.JPanel {
-    int minasEncontradas = 0;
-    public PainelJogo(){
+    
+    boolean minaEncontrada = false;
+    int tamanhoQuadrado = 70;
+    int numLinhas = 8;
+    int numColunas = numLinhas;
+    int larguraTela = tamanhoQuadrado * numColunas;
+    int alturaTela = tamanhoQuadrado * numLinhas;
+    private final int qtdMinas;
+    
+    TijolinhoMina[][] tabuleiro = new TijolinhoMina[numLinhas][numColunas];
+    ArrayList<TijolinhoMina> listMina;
+   
+    
+    public PainelJogo(int qtdMinas){
         initComponents();
         criarTijolo(this);
+        this.qtdMinas = qtdMinas;
     }
     
     public void criarTijolo(PainelJogo painel){
@@ -42,6 +56,7 @@ public final class PainelJogo extends javax.swing.JPanel {
                             if (tijolo.getText()==""){//Ou seja, só pode clicar se tiver vazio
                                 if(listMina.contains(tijolo)){
                                     revelarMinas();
+                                    minaEncontrada = true;
                                 }else{
                                     checarMina(tijolo.linha,tijolo.coluna);
                                 }
@@ -60,18 +75,28 @@ public final class PainelJogo extends javax.swing.JPanel {
                     campoPainel.add(tijolo);
                 }
             }
-            addMinas();
+            addMinas(6);
         }
     
     //adição das minas
-    void addMinas(){
+    void addMinas(int qtdDesejadaMinas){
         listMina = new ArrayList<TijolinhoMina>();
-        
-        listMina.add(tabuleiro[3][2]);
+        Random randomizador = new Random();
+        int qtdMinas = 0;
+        while(qtdMinas<qtdDesejadaMinas){
+            int coluna = randomizador.nextInt(numLinhas);
+            int linha = randomizador.nextInt(numColunas);
+            if (!listMina.contains(tabuleiro[coluna][linha])){
+                listMina.add(tabuleiro[coluna][linha]);
+                qtdMinas++;
+            }
+            
+        }
+        /*listMina.add(tabuleiro[3][2]);
         listMina.add(tabuleiro[5][3]);
         listMina.add(tabuleiro[5][6]);
         listMina.add(tabuleiro[7][4]);
-        listMina.add(tabuleiro[1][4]);
+        listMina.add(tabuleiro[1][4]);*/
     }
     
     void revelarMinas(){
@@ -142,15 +167,7 @@ public final class PainelJogo extends javax.swing.JPanel {
         return 0;
     }
     
-    int tamanhoQuadrado = 70;
-    int numLinhas = 8;
-    int numColunas = numLinhas;
-    int larguraTela = tamanhoQuadrado * numColunas;
-    int alturaTela = tamanhoQuadrado * numLinhas;
     
-    TijolinhoMina[][] tabuleiro = new TijolinhoMina[numLinhas][numColunas];
-    ArrayList<TijolinhoMina> listMina;
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
