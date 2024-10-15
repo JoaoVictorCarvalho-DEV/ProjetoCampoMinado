@@ -48,7 +48,13 @@ public final class PainelJogo extends javax.swing.JPanel {
                                 }
                             }
                          }
-                        }
+                         if(e.getButton()==MouseEvent.BUTTON3 && tijolo.isEnabled()){
+                             if (tijolo.getText()==""){//Ou seja, só pode clicar se tiver vazio
+                                tijolo.setText("🚩");
+                            }else
+                                 tijolo.setText("");
+                         }
+                        } 
                     });
                     
                     campoPainel.add(tijolo);
@@ -76,13 +82,15 @@ public final class PainelJogo extends javax.swing.JPanel {
     }
     
     void checarMina(int linha, int coluna){
+        //CASO BASE 1
         if (linha <0 || linha>=numLinhas || coluna < 0 || coluna >=numColunas){//primeiro caso base
             return;
         }
         TijolinhoMina tijolo = tabuleiro[linha][coluna];
-        //
-        //adicionar caso base aqui(se a mina já estiver ativada
-        //
+        //CASO BASE 2
+        if(!tijolo.isEnabled()){
+            return;
+        }
         tijolo.setEnabled(false);
         
         int minaEncontrada = 0;
@@ -109,6 +117,17 @@ public final class PainelJogo extends javax.swing.JPanel {
             //
             //usar a recursão aqui, verificando se as minas vizinhas tem minas e suas seguintes
             //
+            //topo
+            checarMina(linha-1, coluna-1);
+            checarMina(linha-1, coluna);
+            checarMina(linha-1, coluna+1);
+            //lados
+            checarMina(linha, coluna-1);
+            checarMina(linha, coluna+1);
+            //baixo
+            checarMina(linha+1,coluna-1);
+            checarMina(linha+1, coluna);
+            checarMina(linha+1, coluna+1);
         }
         
         
