@@ -4,6 +4,7 @@
  */
 package edu.jvmc.projetocampominado.gui.jogo;
 
+import edu.jvmc.projetocampominado.model.Partida;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
@@ -18,21 +19,38 @@ import java.util.Random;
 public final class PainelJogo extends javax.swing.JPanel {
     
     private boolean minaEncontrada = false;
-    private int tamanhoQuadrado = 70;
-    private int numLinhas = 8;
+    private final int tamanhoQuadrado = 70;
+    private final int numLinhas = 8;
     private final int numColunas = numLinhas;
     private int qtdMinas;
+    private final Partida partida;
     
     TijolinhoMina[][] tabuleiro = new TijolinhoMina[numLinhas][numColunas];
     ArrayList<TijolinhoMina> listMina;
-   
+
     
-    public PainelJogo(){
+    
+    public PainelJogo(Partida partida){
         initComponents();
+        this.partida = partida;
+        setQtdMinas();
         criarTijolo(this);
-        //this.qtdMinas = qtdMinas;
     }
-    
+    public void setQtdMinas() {
+        String dificuldade = this.partida.getDificuldade();
+        switch (dificuldade) {
+            case "facil":
+                qtdMinas = 5;
+                break;
+            case "media":
+                qtdMinas = 8;
+                break;
+            case "dificil":
+                qtdMinas = 14;
+                break;
+        }
+        lbDificuldade.setText(lbDificuldade.getText() + qtdMinas);
+    }
     public void criarTijolo(PainelJogo painel){
             for (int l = 0; l< painel.numLinhas; l++){
                 for (int c = 0; c< painel.numColunas; c++){
@@ -72,7 +90,7 @@ public final class PainelJogo extends javax.swing.JPanel {
                     campoPainel.add(tijolo);
                 }
             }
-            addMinas(6);
+            addMinas(qtdMinas);
         }
     
     //adição das minas
@@ -171,6 +189,8 @@ public final class PainelJogo extends javax.swing.JPanel {
 
         txPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        lbDificuldade = new javax.swing.JLabel();
+        lbNick = new javax.swing.JLabel();
         campoPainel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -185,6 +205,12 @@ public final class PainelJogo extends javax.swing.JPanel {
         jLabel1.setOpaque(true);
         txPanel.add(jLabel1, java.awt.BorderLayout.NORTH);
 
+        lbDificuldade.setText("Dificuldade: ");
+        txPanel.add(lbDificuldade, java.awt.BorderLayout.PAGE_END);
+
+        lbNick.setText("Nome: ");
+        txPanel.add(lbNick, java.awt.BorderLayout.CENTER);
+
         add(txPanel, java.awt.BorderLayout.NORTH);
 
         campoPainel.setBackground(new java.awt.Color(255, 255, 255));
@@ -196,6 +222,8 @@ public final class PainelJogo extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel campoPainel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lbDificuldade;
+    private javax.swing.JLabel lbNick;
     private javax.swing.JPanel txPanel;
     // End of variables declaration//GEN-END:variables
 }

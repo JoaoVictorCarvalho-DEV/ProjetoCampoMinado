@@ -9,18 +9,18 @@ package edu.jvmc.projetocampominado.model;
  * @author Jarvis 3.0
  */
 public class Partida {
-    private int id;
     private String nome;
     private String situacao;
+    private String dificuldade;
 
-    public int getId() {
-        return id;
+    public String getDificuldade() {
+        return dificuldade;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDificuldade(String dificuldade) {
+        this.dificuldade = dificuldade;
     }
-
+    
     public String getNome() {
         return nome;
     }
