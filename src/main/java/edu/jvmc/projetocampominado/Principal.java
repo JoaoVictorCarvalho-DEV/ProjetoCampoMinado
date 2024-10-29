@@ -28,9 +28,10 @@ public class Principal extends javax.swing.JFrame {
         this.remove(this.painelAtual);
         this.painelAtual = painel;
         this.add(this.painelAtual);
-        this.painelAtual.setSize(810,500);
-        this.setSize(825,540);
-        this.painelAtual.setVisible(true);
+        this.painelAtual.setSize(800,500);
+        this.setSize(815,540);
+        this.setVisible(true);
+        
     }
 
     /**
@@ -45,7 +46,6 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(null);
         setPreferredSize(new java.awt.Dimension(800, 500));
-        setResizable(false);
         getContentPane().setLayout(null);
 
         pack();

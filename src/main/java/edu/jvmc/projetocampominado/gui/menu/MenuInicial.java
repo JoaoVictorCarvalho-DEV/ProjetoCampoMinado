@@ -20,7 +20,7 @@ public class MenuInicial extends javax.swing.JPanel {
     public MenuInicial(Principal framePai) {
         initComponents();
         this.framePai = framePai;
-        this.setSize(800,500);
+        //this.setSize(800,500);
     }
 
     /**
@@ -98,7 +98,7 @@ public class MenuInicial extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btJogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btJogarActionPerformed
-        this.framePai.trocarPainel(new PainelJogo());
+        this.framePai.trocarPainel(new SelecaoDificuldade(framePai));
     }//GEN-LAST:event_btJogarActionPerformed
 
     private void btJogarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btJogarFocusGained
@@ -106,7 +106,7 @@ public class MenuInicial extends javax.swing.JPanel {
     }//GEN-LAST:event_btJogarFocusGained
 
     private void btJogarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btJogarMouseEntered
-        btJogar.setText("💣"+btJogar.getText()+"💣");
+        btJogar.setText("💣"+btJogar.getText()+"?");
     }//GEN-LAST:event_btJogarMouseEntered
 
     private void btJogarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btJogarMouseExited

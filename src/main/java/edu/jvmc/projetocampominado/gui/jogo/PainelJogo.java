@@ -21,8 +21,6 @@ public final class PainelJogo extends javax.swing.JPanel {
     private int tamanhoQuadrado = 70;
     private int numLinhas = 8;
     private final int numColunas = numLinhas;
-    private final int larguraTela = tamanhoQuadrado * numColunas;
-    private final int alturaTela = tamanhoQuadrado * numLinhas;
     private int qtdMinas;
     
     TijolinhoMina[][] tabuleiro = new TijolinhoMina[numLinhas][numColunas];
@@ -71,7 +69,6 @@ public final class PainelJogo extends javax.swing.JPanel {
                          }
                         } 
                     });
-                    
                     campoPainel.add(tijolo);
                 }
             }
