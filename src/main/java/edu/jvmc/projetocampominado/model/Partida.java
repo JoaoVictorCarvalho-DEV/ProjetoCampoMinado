@@ -12,7 +12,16 @@ public class Partida {
     private String nome;
     private String situacao;
     private String dificuldade;
+    private int tempo;
 
+    public int getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(int tempo) {
+        this.tempo = tempo;
+    }
+    
     public String getDificuldade() {
         return dificuldade;
     }
@@ -37,5 +46,12 @@ public class Partida {
         this.situacao = situacao;
     }
     
+    @Override
+    public String toString(){
+        String infos = "Nickname: " + this.nome + "\n" +
+                       "Dificuldade: " + this.dificuldade + "\n" +
+                        "Tempo: " + this.tempo + " segundos";
+        return infos;
+    }
     
 }

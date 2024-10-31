@@ -130,7 +130,7 @@ public class SelecaoDificuldade extends javax.swing.JPanel {
 
     private void btIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIniciarActionPerformed
         partida.setNome(tfNick.getText());
-        this.framePai.trocarPainel(new PainelJogo(this.partida));
+        this.framePai.trocarPainel(new PainelJogo(this.framePai,this.partida));
     }//GEN-LAST:event_btIniciarActionPerformed
 
     private void jRBDificilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBDificilActionPerformed

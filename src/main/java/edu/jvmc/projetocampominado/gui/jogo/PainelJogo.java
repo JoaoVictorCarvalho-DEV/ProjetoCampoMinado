@@ -1,56 +1,65 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package edu.jvmc.projetocampominado.gui.jogo;
 
+import edu.jvmc.projetocampominado.gui.menu.GameOver;
+import edu.jvmc.projetocampominado.Principal;
 import edu.jvmc.projetocampominado.model.Partida;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import java.util.ArrayList;
 import java.util.Random;
- 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  *
  * @author Jarvis 3.0
  */
 public final class PainelJogo extends javax.swing.JPanel {
-    
-    private boolean minaEncontrada = false;
+    Principal framePai;
+    private boolean minaEncontrada;
     private final int tamanhoQuadrado = 70;
     private final int numLinhas = 8;
     private final int numColunas = numLinhas;
     private int qtdMinas;
     private final Partida partida;
-    
+    private Timer tm;
+    private int contador = 0;
     TijolinhoMina[][] tabuleiro = new TijolinhoMina[numLinhas][numColunas];
     ArrayList<TijolinhoMina> listMina;
 
     
     
-    public PainelJogo(Partida partida){
+    public PainelJogo(Principal framePai,Partida partida){
         initComponents();
+        this.framePai = framePai;
         this.partida = partida;
         setQtdMinas();
+        mostrarInfo();
         criarTijolo(this);
+        iniciarTimer();
     }
-    public void setQtdMinas() {
-        String dificuldade = this.partida.getDificuldade();
-        switch (dificuldade) {
-            case "facil":
-                qtdMinas = 5;
-                break;
-            case "media":
-                qtdMinas = 8;
-                break;
-            case "dificil":
-                qtdMinas = 14;
-                break;
-        }
-        lbDificuldade.setText(lbDificuldade.getText() + qtdMinas);
+    
+    public void iniciarTimer(){
+        tm = new Timer();
+        
+        tm.scheduleAtFixedRate(new TimerTask(){
+            
+            @Override
+            public void run(){
+                contador++;
+                lbTempo.setText(""+contador);
+            }
+        }, 1000, 1000);
     }
+    
+    public void mostrarInfo(){
+        lbNick.setText(lbNick.getText()+ this.partida.getNome());
+        lbDificuldade.setText(lbDificuldade.getText() + this.partida.getDificuldade());
+    }
+    
     public void criarTijolo(PainelJogo painel){
             for (int l = 0; l< painel.numLinhas; l++){
                 for (int c = 0; c< painel.numColunas; c++){
@@ -73,15 +82,17 @@ public final class PainelJogo extends javax.swing.JPanel {
                                 if(listMina.contains(tijolo)){
                                     revelarMinas();
                                     minaEncontrada = true;
+                                    finalizarJogo();
+
                                 }else{
                                     checarMina(tijolo.linha,tijolo.coluna);
                                 }
                             }
                          }
                          if(e.getButton()==MouseEvent.BUTTON3 && tijolo.isEnabled()){
-                             if (tijolo.getText()==""){//Ou seja, só pode clicar se tiver vazio
+                             if ("".equals(tijolo.getText())){//Ou seja, só pode clicar se tiver vazio
                                 tijolo.setText("🚩");
-                            }else if(tijolo.getText()=="🚩"){
+                            }else if("🚩".equals(tijolo.getText())){
                                  tijolo.setText("");
                              }
                          }
@@ -97,21 +108,30 @@ public final class PainelJogo extends javax.swing.JPanel {
     void addMinas(int qtdDesejadaMinas){
         listMina = new ArrayList<TijolinhoMina>();
         Random randomizador = new Random();
-        int qtdMinas = 0;
-        while(qtdMinas<qtdDesejadaMinas){
+        int minasPosicionadas = 0;
+        while(minasPosicionadas<qtdDesejadaMinas){
             int coluna = randomizador.nextInt(numLinhas);
             int linha = randomizador.nextInt(numColunas);
             if (!listMina.contains(tabuleiro[coluna][linha])){
                 listMina.add(tabuleiro[coluna][linha]);
-                qtdMinas++;
-            }
-            
+                minasPosicionadas++;
+            } 
         }
-        /*listMina.add(tabuleiro[3][2]);
-        listMina.add(tabuleiro[5][3]);
-        listMina.add(tabuleiro[5][6]);
-        listMina.add(tabuleiro[7][4]);
-        listMina.add(tabuleiro[1][4]);*/
+    }
+    
+    public void setQtdMinas() {
+        String dificuldade = this.partida.getDificuldade();
+        switch (dificuldade) {
+            case "facil":
+                qtdMinas = 5;
+                break;
+            case "media":
+                qtdMinas = 8;
+                break;
+            case "dificil":
+                qtdMinas = 14;
+                break;
+        }
     }
     
     void revelarMinas(){
@@ -133,30 +153,31 @@ public final class PainelJogo extends javax.swing.JPanel {
         }
         tijolo.setEnabled(false);
         
-        int minaEncontrada = 0;
+        int minaEncontradas = 0;
         
         //verificando se há bombas
-        //em cima
-        minaEncontrada +=contarMina(linha-1,coluna-1);//topo e esquerda
-        minaEncontrada +=contarMina(linha-1,coluna);  //topo
-        minaEncontrada +=contarMina(linha-1,coluna+1);//topo e direita e por aí vai
+        //topo
+        minaEncontradas +=contarMina(linha-1,coluna-1);//topo e esquerda
+        minaEncontradas +=contarMina(linha-1,coluna);  //topo
+        minaEncontradas +=contarMina(linha-1,coluna+1);//topo e direita e por aí vai
         
         //lados
-        minaEncontrada +=contarMina(linha, coluna-1);
-        minaEncontrada +=contarMina(linha,coluna+1);
+        minaEncontradas +=contarMina(linha, coluna-1);
+        minaEncontradas +=contarMina(linha,coluna+1);
         
-        //em baixo
-        minaEncontrada +=contarMina(linha+1,coluna-1);
-        minaEncontrada +=contarMina(linha+1,coluna);
-        minaEncontrada +=contarMina(linha+1,coluna+1);
+        //baixo
+        minaEncontradas +=contarMina(linha+1,coluna-1);
+        minaEncontradas +=contarMina(linha+1,coluna);
+        minaEncontradas +=contarMina(linha+1,coluna+1);
         
-        if (minaEncontrada>0){
-            tijolo.setText(Integer.toString(minaEncontrada));
+        if (minaEncontradas>0){
+            tijolo.setText(Integer.toString(minaEncontradas));
         }else{
             tijolo.setText(" ");
             //
             //usar a recursão aqui, verificando se as minas vizinhas tem minas e suas seguintes
             //
+            
             //topo
             checarMina(linha-1, coluna-1);
             checarMina(linha-1, coluna);
@@ -170,7 +191,6 @@ public final class PainelJogo extends javax.swing.JPanel {
             checarMina(linha+1, coluna+1);
         }
         
-        
     }
     int contarMina(int linha, int coluna){
         if (linha <0 || linha>=numLinhas || coluna < 0 || coluna >=numColunas){
@@ -182,6 +202,10 @@ public final class PainelJogo extends javax.swing.JPanel {
         return 0;
     }
     
+    public void finalizarJogo(){
+        this.partida.setTempo(contador);
+        this.framePai.trocarPainel(new GameOver(this.framePai, this.partida));
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -191,25 +215,62 @@ public final class PainelJogo extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         lbDificuldade = new javax.swing.JLabel();
         lbNick = new javax.swing.JLabel();
+        lbTempo = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         campoPainel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(800, 500));
         setLayout(new java.awt.BorderLayout());
 
-        txPanel.setLayout(new java.awt.BorderLayout());
-
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Campo Minado");
         jLabel1.setOpaque(true);
-        txPanel.add(jLabel1, java.awt.BorderLayout.NORTH);
 
         lbDificuldade.setText("Dificuldade: ");
-        txPanel.add(lbDificuldade, java.awt.BorderLayout.PAGE_END);
 
         lbNick.setText("Nome: ");
-        txPanel.add(lbNick, java.awt.BorderLayout.CENTER);
+
+        lbTempo.setText("0");
+
+        jLabel2.setText("Tempo de jogo: ");
+
+        javax.swing.GroupLayout txPanelLayout = new javax.swing.GroupLayout(txPanel);
+        txPanel.setLayout(txPanelLayout);
+        txPanelLayout.setHorizontalGroup(
+            txPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(txPanelLayout.createSequentialGroup()
+                .addGroup(txPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(txPanelLayout.createSequentialGroup()
+                        .addGap(182, 182, 182)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(txPanelLayout.createSequentialGroup()
+                        .addGroup(txPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbNick, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbDificuldade, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(140, 140, 140)
+                        .addComponent(jLabel2)
+                        .addGap(8, 8, 8)
+                        .addComponent(lbTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(186, Short.MAX_VALUE))
+        );
+        txPanelLayout.setVerticalGroup(
+            txPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(txPanelLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGroup(txPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(txPanelLayout.createSequentialGroup()
+                        .addComponent(lbNick)
+                        .addGap(0, 0, 0)
+                        .addComponent(lbDificuldade))
+                    .addGroup(txPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lbTempo))
+                    .addGroup(txPanelLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel2))))
+        );
 
         add(txPanel, java.awt.BorderLayout.NORTH);
 
@@ -222,8 +283,10 @@ public final class PainelJogo extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel campoPainel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbDificuldade;
     private javax.swing.JLabel lbNick;
+    private javax.swing.JLabel lbTempo;
     private javax.swing.JPanel txPanel;
     // End of variables declaration//GEN-END:variables
 }

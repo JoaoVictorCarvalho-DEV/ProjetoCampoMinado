@@ -4,6 +4,7 @@ edu\jvmc\projetocampominado\gui\menu\MenuInicial$1.class
 edu\jvmc\projetocampominado\gui\menu\SelecaoDificuldade.class
 edu\jvmc\projetocampominado\gui\menu\MenuInicial$3.class
 edu\jvmc\projetocampominado\gui\menu\SelecaoDificuldade$4.class
+edu\jvmc\projetocampominado\gui\menu\GameOver.class
 edu\jvmc\projetocampominado\gui\menu\MenuInicial.class
 edu\jvmc\projetocampominado\gui\jogo\PainelJogo.class
 edu\jvmc\projetocampominado\ProjetoCampoMinado.class
@@ -11,9 +12,11 @@ edu\jvmc\projetocampominado\connection\Conexao.class
 edu\jvmc\projetocampominado\gui\jogo\TijolinhoMina.class
 edu\jvmc\projetocampominado\Principal.class
 edu\jvmc\projetocampominado\model\Partida.class
+edu\jvmc\projetocampominado\gui\jogo\PainelJogo$2.class
 edu\jvmc\projetocampominado\gui\menu\MenuInicial$5.class
 edu\jvmc\projetocampominado\gui\menu\SelecaoDificuldade$3.class
 edu\jvmc\projetocampominado\gui\menu\MenuInicial$4.class
+edu\jvmc\projetocampominado\gui\menu\GameOver$1.class
 edu\jvmc\projetocampominado\Principal$1.class
 edu\jvmc\projetocampominado\gui\jogo\PainelJogo$1.class
 edu\jvmc\projetocampominado\gui\menu\SelecaoDificuldade$1.class
