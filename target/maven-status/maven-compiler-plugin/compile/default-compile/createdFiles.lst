@@ -15,6 +15,7 @@ edu\jvmc\projetocampominado\gui\menu\SelecaoDificuldade$2.class
 edu\jvmc\projetocampominado\gui\menu\SelecaoDificuldade$10.class
 edu\jvmc\projetocampominado\gui\menu\MenuInicial$2.class
 edu\jvmc\projetocampominado\gui\menu\SelecaoDificuldade$5.class
+edu\jvmc\projetocampominado\gui\menu\Pontuacao$2.class
 edu\jvmc\projetocampominado\gui\menu\SelecaoDificuldade$7.class
 edu\jvmc\projetocampominado\gui\menu\SelecaoDificuldade.class
 edu\jvmc\projetocampominado\gui\menu\GameOver.class

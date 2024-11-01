@@ -1,19 +1,23 @@
 package edu.jvmc.projetocampominado.gui.menu;
 
 import edu.jvmc.projetocampominado.Principal;
+import edu.jvmc.projetocampominado.connection.Conexao;
 import edu.jvmc.projetocampominado.model.Partida;
+import java.sql.SQLException;
 
 public class GameOver extends javax.swing.JPanel {
 
     private final Partida partida ;
     private final Principal framePai;
-
-    public GameOver(Principal framePai, Partida partida) {
+    Conexao conn = new Conexao();
+    
+    public GameOver(Principal framePai, Partida partida) throws SQLException {
         initComponents();
         this.framePai = framePai;
         this.partida = partida;
         txInfo.setText(this.partida.toString());
         lbSitu.setText(lbSitu.getText() + partida.getSituacao()+ "!");
+        conn.escreverDB(this.partida);
     }
     
     

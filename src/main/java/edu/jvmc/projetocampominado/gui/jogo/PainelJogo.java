@@ -7,11 +7,14 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -203,7 +206,7 @@ public final class PainelJogo extends javax.swing.JPanel {
         return 0;
     }
     
-    public void finalizarJogo(){
+    public void finalizarJogo() throws SQLException{
         this.partida.setTempo(contador);
         if (minaEncontrada){
             this.partida.setSituacao("PERDEU");
@@ -303,7 +306,11 @@ public final class PainelJogo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        finalizarJogo();
+        try {
+            finalizarJogo();
+        } catch (SQLException ex) {
+            Logger.getLogger(PainelJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
     
     
