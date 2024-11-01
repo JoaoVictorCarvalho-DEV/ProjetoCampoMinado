@@ -11,10 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-
 public class Conexao {
-    
     public ArrayList lerDB() throws SQLException{
         Connection conexao = null;
         ArrayList resultado = new ArrayList();
@@ -42,5 +39,7 @@ public class Conexao {
         }
         return resultado;
     }
+    
+    
     
 }

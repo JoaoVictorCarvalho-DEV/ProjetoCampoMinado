@@ -93,7 +93,7 @@ public class MenuInicial extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(0, 153, 0));
         jPanel1.setLayout(null);
         add(jPanel1);
-        jPanel1.setBounds(0, 0, 800, 510);
+        jPanel1.setBounds(0, 0, 800, 500);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btJogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btJogarActionPerformed
@@ -114,6 +114,11 @@ public class MenuInicial extends javax.swing.JPanel {
 
     private void btPontuacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPontuacaoActionPerformed
         btPontuacao.setText("💥"+btPontuacao.getText()+"💥");
+        try {
+            this.framePai.trocarPainel(new Pontuacao(this.framePai));
+        } catch (SQLException ex) {
+            System.out.println("Erro SQL:"+ ex);
+        }
     }//GEN-LAST:event_btPontuacaoActionPerformed
 
     private void btPontuacaoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btPontuacaoMouseEntered
@@ -122,11 +127,7 @@ public class MenuInicial extends javax.swing.JPanel {
 
     private void btPontuacaoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btPontuacaoMouseExited
        btPontuacao.setText("PONTUAÇÃO");
-        try {
-            this.framePai.trocarPainel(new Pontuacao());
-        } catch (SQLException ex) {
-            System.out.println("Erro SQL:"+ ex);
-        }
+        
     }//GEN-LAST:event_btPontuacaoMouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

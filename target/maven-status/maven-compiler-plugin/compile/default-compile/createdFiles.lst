@@ -1,4 +1,3 @@
-edu\jvmc\projetocampominado\connection\resultado.class
 edu\jvmc\projetocampominado\gui\menu\MenuInicial$1.class
 edu\jvmc\projetocampominado\gui\menu\SelecaoDificuldade$13.class
 edu\jvmc\projetocampominado\gui\menu\MenuInicial$3.class
@@ -6,6 +5,7 @@ edu\jvmc\projetocampominado\gui\menu\SelecaoDificuldade$4.class
 edu\jvmc\projetocampominado\gui\menu\MenuInicial.class
 edu\jvmc\projetocampominado\gui\jogo\PainelJogo$3.class
 edu\jvmc\projetocampominado\gui\jogo\PainelJogo.class
+edu\jvmc\projetocampominado\gui\menu\Pontuacao$1.class
 edu\jvmc\projetocampominado\gui\menu\SelecaoDificuldade$8.class
 edu\jvmc\projetocampominado\ProjetoCampoMinado.class
 edu\jvmc\projetocampominado\gui\jogo\PainelJogo$2.class
