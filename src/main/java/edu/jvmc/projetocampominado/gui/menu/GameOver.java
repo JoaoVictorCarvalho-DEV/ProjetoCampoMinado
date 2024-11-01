@@ -13,6 +13,7 @@ public class GameOver extends javax.swing.JPanel {
         this.framePai = framePai;
         this.partida = partida;
         txInfo.setText(this.partida.toString());
+        lbSitu.setText(lbSitu.getText() + partida.getSituacao()+ "!");
     }
     
     
@@ -30,7 +31,7 @@ public class GameOver extends javax.swing.JPanel {
 
         lbSitu.setFont(new java.awt.Font("Arial Black", 3, 36)); // NOI18N
         lbSitu.setForeground(new java.awt.Color(0, 0, 0));
-        lbSitu.setText("VOCÊ PERDEU !");
+        lbSitu.setText("VOCÊ ");
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 3, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -53,17 +54,17 @@ public class GameOver extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(259, Short.MAX_VALUE)
+                .addContainerGap(244, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lbSitu, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(208, 208, 208))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(273, 273, 273))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(258, 258, 258))))
+                        .addGap(258, 258, 258))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lbSitu, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(157, 157, 157))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(282, Short.MAX_VALUE)

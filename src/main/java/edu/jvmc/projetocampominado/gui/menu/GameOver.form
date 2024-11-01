@@ -22,12 +22,8 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace pref="259" max="32767" attributes="0"/>
+              <EmptySpace pref="244" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="lbSitu" min="-2" pref="333" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="208" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="btVoltar" min="-2" pref="208" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="273" max="-2" attributes="0"/>
@@ -35,6 +31,10 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="258" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="lbSitu" min="-2" pref="399" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -77,7 +77,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="VOC&#xca; PERDEU !"/>
+        <Property name="text" type="java.lang.String" value="VOC&#xca; "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

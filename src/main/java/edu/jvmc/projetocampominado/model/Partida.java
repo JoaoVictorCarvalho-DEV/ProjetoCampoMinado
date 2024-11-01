@@ -10,7 +10,7 @@ package edu.jvmc.projetocampominado.model;
  */
 public class Partida {
     private String nome;
-    private String situacao;
+    private String situacao = "Perdeu";
     private String dificuldade;
     private int tempo;
 

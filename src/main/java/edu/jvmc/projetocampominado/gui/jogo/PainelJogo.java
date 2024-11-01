@@ -20,6 +20,7 @@ import java.util.TimerTask;
 public final class PainelJogo extends javax.swing.JPanel {
     Principal framePai;
     private boolean minaEncontrada;
+    private int tijolosRevelados = 0;
     private final int tamanhoQuadrado = 70;
     private final int numLinhas = 8;
     private final int numColunas = numLinhas;
@@ -30,8 +31,6 @@ public final class PainelJogo extends javax.swing.JPanel {
     TijolinhoMina[][] tabuleiro = new TijolinhoMina[numLinhas][numColunas];
     ArrayList<TijolinhoMina> listMina;
 
-    
-    
     public PainelJogo(Principal framePai,Partida partida){
         initComponents();
         this.framePai = framePai;
@@ -77,25 +76,26 @@ public final class PainelJogo extends javax.swing.JPanel {
                          TijolinhoMina tijolo = (TijolinhoMina) e.getSource();
                          
                          //botao esquerdo
-                         if (e.getButton() == MouseEvent.BUTTON1){
+                         if (e.getButton() == MouseEvent.BUTTON1 && minaEncontrada==false){
                             if (tijolo.getText()==""){//Ou seja, só pode clicar se tiver vazio
                                 if(listMina.contains(tijolo)){
-                                    revelarMinas();
                                     minaEncontrada = true;
-                                    finalizarJogo();
-
+                                    revelarMinas();
+                                    tm.cancel();
+                                    //finalizarJogo();
                                 }else{
                                     checarMina(tijolo.linha,tijolo.coluna);
+                                    
                                 }
                             }
-                         }
+                        }
                          if(e.getButton()==MouseEvent.BUTTON3 && tijolo.isEnabled()){
                              if ("".equals(tijolo.getText())){//Ou seja, só pode clicar se tiver vazio
                                 tijolo.setText("🚩");
                             }else if("🚩".equals(tijolo.getText())){
                                  tijolo.setText("");
                              }
-                         }
+                        }
                         } 
                     });
                     campoPainel.add(tijolo);
@@ -115,20 +115,21 @@ public final class PainelJogo extends javax.swing.JPanel {
             if (!listMina.contains(tabuleiro[coluna][linha])){
                 listMina.add(tabuleiro[coluna][linha]);
                 minasPosicionadas++;
-            } 
+            }
+            
         }
     }
     
     public void setQtdMinas() {
         String dificuldade = this.partida.getDificuldade();
         switch (dificuldade) {
-            case "facil":
+            case "FÁCIL":
                 qtdMinas = 5;
                 break;
-            case "media":
+            case "MÉDIA":
                 qtdMinas = 8;
                 break;
-            case "dificil":
+            case "DIFÍCIL":
                 qtdMinas = 14;
                 break;
         }
@@ -154,7 +155,7 @@ public final class PainelJogo extends javax.swing.JPanel {
         tijolo.setEnabled(false);
         
         int minaEncontradas = 0;
-        
+        tijolosRevelados++;
         //verificando se há bombas
         //topo
         minaEncontradas +=contarMina(linha-1,coluna-1);//topo e esquerda
@@ -204,8 +205,20 @@ public final class PainelJogo extends javax.swing.JPanel {
     
     public void finalizarJogo(){
         this.partida.setTempo(contador);
+        if (minaEncontrada){
+            this.partida.setSituacao("PERDEU");
+        }else if(tijolosRevelados==(numColunas*numLinhas)-qtdMinas){
+            this.partida.setSituacao("VENCEU");
+            tm.cancel();
+        }else{
+            this.partida.setSituacao("PERDEU");
+            tm.cancel();
+        }
+        
         this.framePai.trocarPainel(new GameOver(this.framePai, this.partida));
     }
+    
+ 
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -217,6 +230,7 @@ public final class PainelJogo extends javax.swing.JPanel {
         lbNick = new javax.swing.JLabel();
         lbTempo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         campoPainel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -236,24 +250,31 @@ public final class PainelJogo extends javax.swing.JPanel {
 
         jLabel2.setText("Tempo de jogo: ");
 
+        jButton1.setText("TERMINAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout txPanelLayout = new javax.swing.GroupLayout(txPanel);
         txPanel.setLayout(txPanelLayout);
         txPanelLayout.setHorizontalGroup(
             txPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(txPanelLayout.createSequentialGroup()
-                .addGroup(txPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(txPanelLayout.createSequentialGroup()
-                        .addGap(182, 182, 182)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(txPanelLayout.createSequentialGroup()
-                        .addGroup(txPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbNick, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbDificuldade, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(140, 140, 140)
-                        .addComponent(jLabel2)
-                        .addGap(8, 8, 8)
-                        .addComponent(lbTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(182, 182, 182)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(186, Short.MAX_VALUE))
+            .addGroup(txPanelLayout.createSequentialGroup()
+                .addGroup(txPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbNick, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbDificuldade, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(140, 140, 140)
+                .addComponent(jLabel2)
+                .addGap(8, 8, 8)
+                .addComponent(lbTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1))
         );
         txPanelLayout.setVerticalGroup(
             txPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,8 +286,10 @@ public final class PainelJogo extends javax.swing.JPanel {
                         .addGap(0, 0, 0)
                         .addComponent(lbDificuldade))
                     .addGroup(txPanelLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lbTempo))
+                        .addGap(1, 1, 1)
+                        .addGroup(txPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbTempo)
+                            .addComponent(jButton1)))
                     .addGroup(txPanelLayout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addComponent(jLabel2))))
@@ -278,10 +301,15 @@ public final class PainelJogo extends javax.swing.JPanel {
         campoPainel.setLayout(new java.awt.GridLayout(this.numLinhas, this.numColunas));
         add(campoPainel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        finalizarJogo();
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel campoPainel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbDificuldade;

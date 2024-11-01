@@ -38,6 +38,19 @@ public class SelecaoDificuldade extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(0, 102, 102));
         setName(""); // NOI18N
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                formFocusLost(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
         setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
@@ -57,6 +70,11 @@ public class SelecaoDificuldade extends javax.swing.JPanel {
 
         grupoDificuldades.add(jRBFacil);
         jRBFacil.setText("Fácil💣");
+        jRBFacil.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jRBFacilFocusLost(evt);
+            }
+        });
         jRBFacil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRBFacilActionPerformed(evt);
@@ -67,6 +85,11 @@ public class SelecaoDificuldade extends javax.swing.JPanel {
 
         grupoDificuldades.add(jRBMedia);
         jRBMedia.setText("Média💣💣");
+        jRBMedia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jRBMediaFocusLost(evt);
+            }
+        });
         jRBMedia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRBMediaActionPerformed(evt);
@@ -91,9 +114,21 @@ public class SelecaoDificuldade extends javax.swing.JPanel {
                 tfNickFocusLost(evt);
             }
         });
+        tfNick.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                tfNickInputMethodTextChanged(evt);
+            }
+        });
         tfNick.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNickActionPerformed(evt);
+            }
+        });
+        tfNick.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfNickKeyReleased(evt);
             }
         });
         add(tfNick);
@@ -101,6 +136,11 @@ public class SelecaoDificuldade extends javax.swing.JPanel {
 
         btIniciar.setText("INICIAR");
         btIniciar.setEnabled(false);
+        btIniciar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btIniciarMouseEntered(evt);
+            }
+        });
         btIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btIniciarActionPerformed(evt);
@@ -111,19 +151,18 @@ public class SelecaoDificuldade extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRBMediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBMediaActionPerformed
-        partida.setDificuldade("media");
+        partida.setDificuldade("MÉDIA");
+        if(!"".equals(tfNick.getText())&&(jRBMedia.isSelected()||jRBDificil.isSelected()||jRBFacil.isSelected())){
+            btIniciar.setEnabled(true);
+        }
     }//GEN-LAST:event_jRBMediaActionPerformed
 
     private void tfNickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNickActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNickActionPerformed
 
-    private void jRBFacilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFacilActionPerformed
-        partida.setDificuldade("facil");
-    }//GEN-LAST:event_jRBFacilActionPerformed
-
     private void tfNickFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNickFocusLost
-        if(tfNick.getText()!=""){
+        if(!"".equals(tfNick.getText())&&(jRBMedia.isSelected()||jRBDificil.isSelected()||jRBFacil.isSelected())){
             btIniciar.setEnabled(true);
         }
     }//GEN-LAST:event_tfNickFocusLost
@@ -134,8 +173,58 @@ public class SelecaoDificuldade extends javax.swing.JPanel {
     }//GEN-LAST:event_btIniciarActionPerformed
 
     private void jRBDificilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBDificilActionPerformed
-        partida.setDificuldade("dificil");
+        partida.setDificuldade("DIFÍCIL");
+        if(!"".equals(tfNick.getText())&&(jRBMedia.isSelected()||jRBDificil.isSelected()||jRBFacil.isSelected())){
+            btIniciar.setEnabled(true);
+        }
     }//GEN-LAST:event_jRBDificilActionPerformed
+
+    private void jRBMediaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jRBMediaFocusLost
+        
+    }//GEN-LAST:event_jRBMediaFocusLost
+
+    private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
+        if(!"".equals(tfNick.getText())&&(jRBMedia.isSelected()||jRBDificil.isSelected()||jRBFacil.isSelected())){
+            btIniciar.setEnabled(true);
+        }
+    }//GEN-LAST:event_formFocusLost
+
+    private void tfNickInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tfNickInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNickInputMethodTextChanged
+
+    private void tfNickKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNickKeyReleased
+        if(!"".equals(tfNick.getText())&&(jRBMedia.isSelected()||jRBDificil.isSelected()||jRBFacil.isSelected())){
+            btIniciar.setEnabled(true);
+        }
+    }//GEN-LAST:event_tfNickKeyReleased
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        if(!"".equals(tfNick.getText())&&(jRBMedia.isSelected()||jRBDificil.isSelected()||jRBFacil.isSelected())){
+            btIniciar.setEnabled(true);
+        }
+    }//GEN-LAST:event_formFocusGained
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        
+    }//GEN-LAST:event_formMouseClicked
+
+    private void jRBFacilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFacilActionPerformed
+        partida.setDificuldade("FÁCIL");
+        if(!"".equals(tfNick.getText())&&(jRBMedia.isSelected()||jRBDificil.isSelected()||jRBFacil.isSelected())){
+            btIniciar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jRBFacilActionPerformed
+
+    private void jRBFacilFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jRBFacilFocusLost
+
+    }//GEN-LAST:event_jRBFacilFocusLost
+
+    private void btIniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btIniciarMouseEntered
+        if("".equals(tfNick.getText())){
+            btIniciar.setEnabled(false);
+        }
+    }//GEN-LAST:event_btIniciarMouseEntered
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btIniciar;

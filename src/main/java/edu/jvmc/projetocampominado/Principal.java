@@ -29,7 +29,7 @@ public class Principal extends javax.swing.JFrame {
         this.painelAtual = painel;
         this.add(this.painelAtual);
         this.painelAtual.setSize(800,500);
-        this.setSize(815,540);
+        this.setSize(815,538);
         this.setVisible(true);
         
     }
