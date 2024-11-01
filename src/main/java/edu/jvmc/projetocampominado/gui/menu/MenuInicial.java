@@ -6,6 +6,9 @@ package edu.jvmc.projetocampominado.gui.menu;
 
 import edu.jvmc.projetocampominado.Principal;
 import edu.jvmc.projetocampominado.gui.jogo.PainelJogo;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -119,6 +122,11 @@ public class MenuInicial extends javax.swing.JPanel {
 
     private void btPontuacaoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btPontuacaoMouseExited
        btPontuacao.setText("PONTUAÇÃO");
+        try {
+            this.framePai.trocarPainel(new Pontuacao());
+        } catch (SQLException ex) {
+            System.out.println("Erro SQL:"+ ex);
+        }
     }//GEN-LAST:event_btPontuacaoMouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

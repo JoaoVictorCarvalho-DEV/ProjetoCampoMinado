@@ -4,23 +4,32 @@
  */
 package edu.jvmc.projetocampominado.connection;
 
+import edu.jvmc.projetocampominado.model.Partida;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 
 public class Conexao {
-    public static void main(String[] args) throws SQLException {
+    
+    public ArrayList lerDB() throws SQLException{
         Connection conexao = null;
+        ArrayList resultado = new ArrayList();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conexao = DriverManager.getConnection("jdbc:mysql://localhost/db_cm", "root", "");
             ResultSet rsCliente = conexao.createStatement().executeQuery("SELECT * FROM jogadas");
-            System.out.println("Jogadas:");
+            
             while (rsCliente.next()){
-                System.out.println("Nome: "+ rsCliente.getString("nome"));
+                Partida partidaAtual = new Partida();
+                partidaAtual.setNome(rsCliente.getString("nome"));
+                partidaAtual.setSituacao(rsCliente.getString("situacao"));
+                partidaAtual.setTempo(rsCliente.getInt("tempo"));
+                partidaAtual.setDificuldade(rsCliente.getString("dificuldade"));
+                resultado.add(partidaAtual);
             }
         } catch (ClassNotFoundException ex) {
             System.out.println("Driver do banco de dados não localizado");
@@ -31,6 +40,7 @@ public class Conexao {
                 conexao.close();
             }
         }
+        return resultado;
     }
     
 }
