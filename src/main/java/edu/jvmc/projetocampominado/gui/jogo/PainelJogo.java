@@ -84,11 +84,18 @@ public final class PainelJogo extends javax.swing.JPanel {
                                 if(listMina.contains(tijolo)){
                                     minaEncontrada = true;
                                     revelarMinas();
-                                    tm.cancel();
-                                    //finalizarJogo();
+                                    try {
+                                        checarFinal();
+                                    } catch (SQLException ex) {
+                                        Logger.getLogger(PainelJogo.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
                                 }else{
                                     checarMina(tijolo.linha,tijolo.coluna);
-                                    
+                                    try {
+                                        checarFinal();
+                                    } catch (SQLException ex) {
+                                        Logger.getLogger(PainelJogo.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
                                 }
                             }
                         }
@@ -208,19 +215,18 @@ public final class PainelJogo extends javax.swing.JPanel {
     
     public void finalizarJogo() throws SQLException{
         this.partida.setTempo(contador);
-        if (minaEncontrada){
-            this.partida.setSituacao("PERDEU");
-        }else if(tijolosRevelados==(numColunas*numLinhas)-qtdMinas){
-            this.partida.setSituacao("VENCEU");
-            tm.cancel();
-        }else{
-            this.partida.setSituacao("PERDEU");
-            tm.cancel();
-        }
-        
         this.framePai.trocarPainel(new GameOver(this.framePai, this.partida));
+        tm.cancel();
     }
     
+    public void  checarFinal() throws SQLException{
+        if(tijolosRevelados==(numColunas*numLinhas)-qtdMinas){
+            this.partida.setSituacao("VENCEU");
+            finalizarJogo();
+        }else{
+            this.partida.setSituacao("PERDEU");
+        }
+    }
  
     
     @SuppressWarnings("unchecked")
@@ -307,7 +313,7 @@ public final class PainelJogo extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            finalizarJogo();
+            checarFinal();
         } catch (SQLException ex) {
             Logger.getLogger(PainelJogo.class.getName()).log(Level.SEVERE, null, ex);
         }

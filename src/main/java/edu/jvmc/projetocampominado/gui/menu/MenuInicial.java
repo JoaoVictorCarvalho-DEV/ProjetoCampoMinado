@@ -31,22 +31,43 @@ public class MenuInicial extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        btJogar = new javax.swing.JButton();
         btPontuacao = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        btJogar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 153, 51));
         setMinimumSize(new java.awt.Dimension(800, 500));
         setOpaque(false);
         setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 36)); // NOI18N
-        jLabel1.setText("CAMPO MINADO");
-        add(jLabel1);
-        jLabel1.setBounds(220, 100, 390, 70);
+        btPontuacao.setBackground(new java.awt.Color(255, 255, 255));
+        btPontuacao.setFont(new java.awt.Font("Berlin Sans FB", 0, 24)); // NOI18N
+        btPontuacao.setForeground(new java.awt.Color(51, 51, 51));
+        btPontuacao.setText("PLACAR");
+        btPontuacao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btPontuacaoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btPontuacaoMouseExited(evt);
+            }
+        });
+        btPontuacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPontuacaoActionPerformed(evt);
+            }
+        });
+        add(btPontuacao);
+        btPontuacao.setBounds(330, 330, 130, 60);
 
+        jPanel1.setBackground(new java.awt.Color(50, 50, 50));
+        jPanel1.setLayout(null);
+
+        btJogar.setBackground(new java.awt.Color(255, 255, 255));
+        btJogar.setFont(new java.awt.Font("Berlin Sans FB", 0, 24)); // NOI18N
+        btJogar.setForeground(new java.awt.Color(51, 51, 51));
         btJogar.setText("JOGAR");
         btJogar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -66,32 +87,20 @@ public class MenuInicial extends javax.swing.JPanel {
                 btJogarActionPerformed(evt);
             }
         });
-        add(btJogar);
-        btJogar.setBounds(300, 270, 180, 27);
+        jPanel1.add(btJogar);
+        btJogar.setBounds(120, 330, 130, 60);
 
-        btPontuacao.setText("PONTUAÇÕES");
-        btPontuacao.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btPontuacaoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btPontuacaoMouseExited(evt);
-            }
-        });
-        btPontuacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btPontuacaoActionPerformed(evt);
-            }
-        });
-        add(btPontuacao);
-        btPontuacao.setBounds(300, 330, 180, 27);
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Berlin Sans FB", 0, 24)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(51, 51, 51));
+        jButton1.setText("SAIR");
+        jPanel1.add(jButton1);
+        jButton1.setBounds(550, 330, 130, 60);
 
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        add(jPanel2);
-        jPanel2.setBounds(190, 80, 410, 100);
+        jLabel2.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\src\\main\\java\\edu\\jvmc\\projetocampominado\\gui\\menu\\Tela_inicial_sem_botoes.png"));
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(0, 0, 800, 500);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 0));
-        jPanel1.setLayout(null);
         add(jPanel1);
         jPanel1.setBounds(0, 0, 800, 500);
     }// </editor-fold>//GEN-END:initComponents
@@ -105,15 +114,13 @@ public class MenuInicial extends javax.swing.JPanel {
     }//GEN-LAST:event_btJogarFocusGained
 
     private void btJogarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btJogarMouseEntered
-        btJogar.setText("💣"+btJogar.getText()+"💣");
+        btJogar.setBackground(new java.awt.Color(150, 150, 150));
     }//GEN-LAST:event_btJogarMouseEntered
 
     private void btJogarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btJogarMouseExited
-       btJogar.setText("JOGAR");
+       btJogar.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btJogarMouseExited
-
     private void btPontuacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPontuacaoActionPerformed
-        btPontuacao.setText("💥"+btPontuacao.getText()+"💥");
         try {
             this.framePai.trocarPainel(new Pontuacao(this.framePai));
         } catch (SQLException ex) {
@@ -122,19 +129,18 @@ public class MenuInicial extends javax.swing.JPanel {
     }//GEN-LAST:event_btPontuacaoActionPerformed
 
     private void btPontuacaoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btPontuacaoMouseEntered
-        btPontuacao.setText("💣"+btPontuacao.getText()+"💣");
+        btPontuacao.setBackground(new java.awt.Color(150, 150, 150));
     }//GEN-LAST:event_btPontuacaoMouseEntered
 
     private void btPontuacaoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btPontuacaoMouseExited
-       btPontuacao.setText("PONTUAÇÃO");
-        
+        btPontuacao.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btPontuacaoMouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btJogar;
     private javax.swing.JButton btPontuacao;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
