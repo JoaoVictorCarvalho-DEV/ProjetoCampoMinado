@@ -27,14 +27,12 @@ public class SelecaoDificuldade extends javax.swing.JPanel {
     private void initComponents() {
 
         grupoDificuldades = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jRBFacil = new javax.swing.JRadioButton();
         jRBMedia = new javax.swing.JRadioButton();
         jRBDificil = new javax.swing.JRadioButton();
-        tfNick = new javax.swing.JTextField();
         btIniciar = new javax.swing.JButton();
+        tfNick = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 102, 102));
         setName(""); // NOI18N
@@ -53,23 +51,7 @@ public class SelecaoDificuldade extends javax.swing.JPanel {
         });
         setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel1.setText("DEFINIÇÕES DE JOGO");
-        add(jLabel1);
-        jLabel1.setBounds(270, 30, 270, 80);
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("APELIDO DE JOGADOR:  ");
-        add(jLabel2);
-        jLabel2.setBounds(50, 140, 160, 20);
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("DIFICULDADE: ");
-        add(jLabel3);
-        jLabel3.setBounds(50, 220, 100, 20);
-
         grupoDificuldades.add(jRBFacil);
-        jRBFacil.setText("Fácil💣");
         jRBFacil.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jRBFacilFocusLost(evt);
@@ -81,10 +63,9 @@ public class SelecaoDificuldade extends javax.swing.JPanel {
             }
         });
         add(jRBFacil);
-        jRBFacil.setBounds(50, 270, 110, 21);
+        jRBFacil.setBounds(50, 320, 110, 20);
 
         grupoDificuldades.add(jRBMedia);
-        jRBMedia.setText("Média💣💣");
         jRBMedia.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jRBMediaFocusLost(evt);
@@ -96,19 +77,39 @@ public class SelecaoDificuldade extends javax.swing.JPanel {
             }
         });
         add(jRBMedia);
-        jRBMedia.setBounds(50, 310, 100, 21);
+        jRBMedia.setBounds(50, 360, 100, 20);
 
         grupoDificuldades.add(jRBDificil);
-        jRBDificil.setText("Difícil💣💣💣");
         jRBDificil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRBDificilActionPerformed(evt);
             }
         });
         add(jRBDificil);
-        jRBDificil.setBounds(50, 350, 100, 21);
+        jRBDificil.setBounds(50, 400, 100, 20);
 
-        tfNick.setColumns(3);
+        btIniciar.setBackground(new java.awt.Color(255, 255, 255));
+        btIniciar.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        btIniciar.setForeground(new java.awt.Color(51, 51, 51));
+        btIniciar.setText("INICIAR");
+        btIniciar.setEnabled(false);
+        btIniciar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btIniciarMouseEntered(evt);
+            }
+        });
+        btIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btIniciarActionPerformed(evt);
+            }
+        });
+        add(btIniciar);
+        btIniciar.setBounds(40, 430, 90, 40);
+
+        tfNick.setBackground(new java.awt.Color(255, 255, 255));
+        tfNick.setColumns(1);
+        tfNick.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        tfNick.setForeground(new java.awt.Color(51, 51, 51));
         tfNick.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfNickFocusLost(evt);
@@ -132,22 +133,11 @@ public class SelecaoDificuldade extends javax.swing.JPanel {
             }
         });
         add(tfNick);
-        tfNick.setBounds(50, 170, 150, 26);
+        tfNick.setBounds(40, 200, 270, 40);
 
-        btIniciar.setText("INICIAR");
-        btIniciar.setEnabled(false);
-        btIniciar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btIniciarMouseEntered(evt);
-            }
-        });
-        btIniciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btIniciarActionPerformed(evt);
-            }
-        });
-        add(btIniciar);
-        btIniciar.setBounds(50, 380, 120, 50);
+        jLabel4.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\src\\main\\java\\edu\\jvmc\\projetocampominado\\gui\\menu\\img\\sem_1.png"));
+        add(jLabel4);
+        jLabel4.setBounds(0, 0, 800, 500);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRBMediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBMediaActionPerformed
@@ -229,9 +219,7 @@ public class SelecaoDificuldade extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btIniciar;
     private javax.swing.ButtonGroup grupoDificuldades;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JRadioButton jRBDificil;
     private javax.swing.JRadioButton jRBFacil;
     private javax.swing.JRadioButton jRBMedia;

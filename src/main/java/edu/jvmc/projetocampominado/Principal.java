@@ -19,7 +19,7 @@ public class Principal extends javax.swing.JFrame {
     JPanel painelAtual;
     public Principal() {
         painelAtual = new MenuInicial(this);
-        this.painelAtual.setSize(800,500);
+        this.painelAtual.setSize(815,538);
         this.add(this.painelAtual);
         initComponents();
     }
@@ -45,7 +45,8 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(null);
-        setPreferredSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(814, 538));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         pack();

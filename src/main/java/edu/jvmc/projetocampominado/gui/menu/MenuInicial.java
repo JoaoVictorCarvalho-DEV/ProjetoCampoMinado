@@ -34,7 +34,7 @@ public class MenuInicial extends javax.swing.JPanel {
         btPontuacao = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btJogar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btSair = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 153, 51));
@@ -90,14 +90,19 @@ public class MenuInicial extends javax.swing.JPanel {
         jPanel1.add(btJogar);
         btJogar.setBounds(120, 330, 130, 60);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Berlin Sans FB", 0, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(51, 51, 51));
-        jButton1.setText("SAIR");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(550, 330, 130, 60);
+        btSair.setBackground(new java.awt.Color(255, 255, 255));
+        btSair.setFont(new java.awt.Font("Berlin Sans FB", 0, 24)); // NOI18N
+        btSair.setForeground(new java.awt.Color(51, 51, 51));
+        btSair.setText("SAIR");
+        btSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btSairMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btSair);
+        btSair.setBounds(550, 330, 130, 60);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\src\\main\\java\\edu\\jvmc\\projetocampominado\\gui\\menu\\Tela_inicial_sem_botoes.png"));
+        jLabel2.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\src\\main\\java\\edu\\jvmc\\projetocampominado\\gui\\menu\\img\\Tela_inicial_sem_botoes.png"));
         jPanel1.add(jLabel2);
         jLabel2.setBounds(0, 0, 800, 500);
 
@@ -136,10 +141,14 @@ public class MenuInicial extends javax.swing.JPanel {
         btPontuacao.setBackground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btPontuacaoMouseExited
 
+    private void btSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSairMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_btSairMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btJogar;
     private javax.swing.JButton btPontuacao;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btSair;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

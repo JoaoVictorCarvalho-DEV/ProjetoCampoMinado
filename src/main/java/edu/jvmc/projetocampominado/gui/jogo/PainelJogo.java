@@ -3,6 +3,7 @@ package edu.jvmc.projetocampominado.gui.jogo;
 import edu.jvmc.projetocampominado.gui.menu.GameOver;
 import edu.jvmc.projetocampominado.Principal;
 import edu.jvmc.projetocampominado.model.Partida;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
@@ -71,7 +72,6 @@ public final class PainelJogo extends javax.swing.JPanel {
                     tijolo.setFocusable(false);
                     tijolo.setMargin(new Insets(0,0,0,0));
                     tijolo.setFont(new Font("Arial Unicode MS", Font.PLAIN, 45));
-
                     tijolo.addMouseListener(new MouseAdapter(){
                         
                      @Override
@@ -79,10 +79,11 @@ public final class PainelJogo extends javax.swing.JPanel {
                          TijolinhoMina tijolo = (TijolinhoMina) e.getSource();
                          
                          //botao esquerdo
-                         if (e.getButton() == MouseEvent.BUTTON1 && minaEncontrada==false){
+                         if (e.getButton() == MouseEvent.BUTTON1 && !minaEncontrada){
                             if (tijolo.getText()==""){//Ou seja, só pode clicar se tiver vazio
                                 if(listMina.contains(tijolo)){
                                     minaEncontrada = true;
+                                    
                                     revelarMinas();
                                     try {
                                         checarFinal();
@@ -99,7 +100,7 @@ public final class PainelJogo extends javax.swing.JPanel {
                                 }
                             }
                         }
-                         if(e.getButton()==MouseEvent.BUTTON3 && tijolo.isEnabled()){
+                         if(e.getButton()==MouseEvent.BUTTON3 && tijolo.isEnabled() && !minaEncontrada){
                              if ("".equals(tijolo.getText())){//Ou seja, só pode clicar se tiver vazio
                                 tijolo.setText("🚩");
                             }else if("🚩".equals(tijolo.getText())){
@@ -149,6 +150,7 @@ public final class PainelJogo extends javax.swing.JPanel {
         for (int i = 0; i<listMina.size(); i++){
             TijolinhoMina tijolo = listMina.get(i);
             tijolo.setText("💣");
+            tijolo.setBackground(Color.WHITE);
         }
     }
     
@@ -162,10 +164,11 @@ public final class PainelJogo extends javax.swing.JPanel {
         if(!tijolo.isEnabled()){
             return;
         }
-        tijolo.setEnabled(false);
         
+        tijolo.setEnabled(false);
         int minaEncontradas = 0;
         tijolosRevelados++;
+        
         //verificando se há bombas
         //topo
         minaEncontradas +=contarMina(linha-1,coluna-1);//topo e esquerda
@@ -223,6 +226,9 @@ public final class PainelJogo extends javax.swing.JPanel {
         if(tijolosRevelados==(numColunas*numLinhas)-qtdMinas){
             this.partida.setSituacao("VENCEU");
             finalizarJogo();
+        }else if(minaEncontrada){
+            this.partida.setSituacao("PERDEU");
+            tm.cancel();
         }else{
             this.partida.setSituacao("PERDEU");
         }
@@ -239,30 +245,41 @@ public final class PainelJogo extends javax.swing.JPanel {
         lbNick = new javax.swing.JLabel();
         lbTempo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btTerminar = new javax.swing.JButton();
         campoPainel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(800, 500));
         setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        txPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 0, 153));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Campo Minado");
         jLabel1.setOpaque(true);
 
+        lbDificuldade.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         lbDificuldade.setText("Dificuldade: ");
 
+        lbNick.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         lbNick.setText("Nome: ");
 
+        lbTempo.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         lbTempo.setText("0");
 
+        jLabel2.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel2.setText("Tempo de jogo: ");
 
-        jButton1.setText("TERMINAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btTerminar.setBackground(new java.awt.Color(255, 255, 255));
+        btTerminar.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        btTerminar.setForeground(new java.awt.Color(51, 51, 51));
+        btTerminar.setText("TERMINAR");
+        btTerminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btTerminarActionPerformed(evt);
             }
         });
 
@@ -280,10 +297,10 @@ public final class PainelJogo extends javax.swing.JPanel {
                     .addComponent(lbDificuldade, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(140, 140, 140)
                 .addComponent(jLabel2)
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1))
+                .addComponent(btTerminar))
         );
         txPanelLayout.setVerticalGroup(
             txPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,12 +313,12 @@ public final class PainelJogo extends javax.swing.JPanel {
                         .addComponent(lbDificuldade))
                     .addGroup(txPanelLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addGroup(txPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbTempo)
-                            .addComponent(jButton1)))
+                        .addComponent(btTerminar))
                     .addGroup(txPanelLayout.createSequentialGroup()
                         .addGap(5, 5, 5)
-                        .addComponent(jLabel2))))
+                        .addGroup(txPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(lbTempo)))))
         );
 
         add(txPanel, java.awt.BorderLayout.NORTH);
@@ -311,18 +328,19 @@ public final class PainelJogo extends javax.swing.JPanel {
         add(campoPainel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btTerminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTerminarActionPerformed
         try {
-            checarFinal();
+            finalizarJogo();
+            
         } catch (SQLException ex) {
             Logger.getLogger(PainelJogo.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btTerminarActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btTerminar;
     private javax.swing.JPanel campoPainel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbDificuldade;
