@@ -15,7 +15,8 @@ public class GameOver extends javax.swing.JPanel {
         initComponents();
         this.framePai = framePai;
         this.partida = partida;
-        txInfo.setText(this.partida.toString());
+        txInfoNome.setText(partida.getNome());
+        txInfoTempo.setText(Integer.toString(partida.getTempo())+" segundos");
         lbSitu.setText(lbSitu.getText() + partida.getSituacao()+ "!");
         conn.escreverDB(this.partida);
     }
@@ -26,72 +27,52 @@ public class GameOver extends javax.swing.JPanel {
     private void initComponents() {
 
         lbSitu = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         btVoltar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txInfo = new javax.swing.JTextArea();
+        txInfoTempo = new javax.swing.JLabel();
+        txInfoNome = new javax.swing.JLabel();
+        lbImagem = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 255, 204));
+        setLayout(null);
 
-        lbSitu.setFont(new java.awt.Font("Arial Black", 3, 36)); // NOI18N
-        lbSitu.setForeground(new java.awt.Color(0, 0, 0));
+        lbSitu.setBackground(new java.awt.Color(255, 255, 255));
+        lbSitu.setFont(new java.awt.Font("Berlin Sans FB", 1, 28)); // NOI18N
+        lbSitu.setForeground(new java.awt.Color(102, 0, 102));
         lbSitu.setText("VOCÊ ");
+        add(lbSitu);
+        lbSitu.setBounds(290, 200, 399, 52);
 
-        jLabel2.setFont(new java.awt.Font("Arial Black", 3, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("GAME OVER");
-
+        btVoltar.setBackground(new java.awt.Color(102, 0, 102));
+        btVoltar.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        btVoltar.setForeground(new java.awt.Color(255, 255, 255));
         btVoltar.setText("VOLTAR AO MENU PRINCIPAL");
+        btVoltar.setBorder(null);
         btVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btVoltarActionPerformed(evt);
             }
         });
+        add(btVoltar);
+        btVoltar.setBounds(290, 380, 230, 40);
 
-        txInfo.setColumns(20);
-        txInfo.setRows(5);
-        txInfo.setFocusable(false);
-        jScrollPane1.setViewportView(txInfo);
+        txInfoTempo.setBackground(new java.awt.Color(255, 255, 255));
+        txInfoTempo.setFont(new java.awt.Font("Berlin Sans FB", 0, 24)); // NOI18N
+        txInfoTempo.setForeground(new java.awt.Color(255, 255, 255));
+        txInfoTempo.setText("Tempo");
+        add(txInfoTempo);
+        txInfoTempo.setBounds(360, 320, 190, 40);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(244, 244, 244)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lbSitu, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(157, 157, 157))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(269, 269, 269))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(293, 293, 293))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(282, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(259, 259, 259)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(175, 175, 175)
-                .addComponent(lbSitu)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(112, 112, 112)
-                    .addComponent(jLabel2)
-                    .addContainerGap(336, Short.MAX_VALUE)))
-        );
+        txInfoNome.setBackground(new java.awt.Color(255, 255, 255));
+        txInfoNome.setFont(new java.awt.Font("Berlin Sans FB", 0, 24)); // NOI18N
+        txInfoNome.setForeground(new java.awt.Color(255, 255, 255));
+        txInfoNome.setText("Nome");
+        add(txInfoNome);
+        txInfoNome.setBounds(360, 280, 190, 40);
+
+        lbImagem.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        lbImagem.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\src\\main\\java\\edu\\jvmc\\projetocampominado\\gui\\menu\\img\\game_over_sem.png"));
+        add(lbImagem);
+        lbImagem.setBounds(0, 0, 800, 500);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
@@ -101,9 +82,9 @@ public class GameOver extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btVoltar;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbImagem;
     private javax.swing.JLabel lbSitu;
-    private javax.swing.JTextArea txInfo;
+    private javax.swing.JLabel txInfoNome;
+    private javax.swing.JLabel txInfoTempo;
     // End of variables declaration//GEN-END:variables
 }
